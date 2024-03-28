@@ -3,7 +3,7 @@ import { pizzaList } from './pizza-data.js'
 import './App.css'
 
 const App = () => {
-  const [pizzas, setPizzaList] = useState(pizzaList)
+  const [pizzas, setPizzas] = useState(pizzaList)
   const [featPizzaId, setFeatPizzaId] = useState(null)
   const featuredPizza = pizzas.find((pizza)=> pizza.id === featPizzaId)
   const [pizzaNameInput, setPizzaNameInput] = useState("");
@@ -14,7 +14,7 @@ const App = () => {
       const response = await fetch (pizzaList);
       const json = await response.json();
       const topSeven = json;
-      setPizzaList(topSeven);
+      setPizzas(topSeven);
     }
 
     getPizza();
@@ -30,7 +30,7 @@ const App = () => {
 
   const onPizzaFormSubmit =(event) => {
     event.preventDefault();
-    setPizzaList([...pizzaList, { name: pizzaNameInput, topping: pizzaToppingInput }]);
+    setPizzas([...pizzas, { id: 8, name: pizzaNameInput, topping: pizzaToppingInput }]);
 
   }
 
@@ -42,7 +42,7 @@ const App = () => {
     <form onSubmit={onPizzaFormSubmit}>
       <input placeholder="pizza name" name="newPizzaName" onChange={(event) => setPizzaNameInput(event.target.value)}/>
       <input placeholder="pizza topping" name="newPizzaTopping" onChange={(event) => setPizzaToppingInput(event.target.value)}/>
-        <button>Submit New Pizza!</button>
+        <button>Create your own!</button>
     </form>
     
     <div>
@@ -56,7 +56,7 @@ const App = () => {
       )}
 {
   pizzas.map((pizza) => {
-    return <p onClick={() => {setFeatPizzaId(pizza.id)}} key={pizza.id}>{pizza.name}</p>
+    return <p onClick={() => {setFeatPizzaId(pizza.id)}} key={pizza.name}>{pizza.name}</p>
   })
 }
     </div>
